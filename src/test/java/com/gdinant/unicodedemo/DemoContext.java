@@ -1,0 +1,22 @@
+package com.gdinant.unicodedemo;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+import org.testcontainers.containers.MSSQLServerContainer;
+
+@TestConfiguration(proxyBeanMethods = false)
+public class DemoContext {
+
+	@Bean
+	@ServiceConnection
+	public MSSQLServerContainer<?> mssqlContainer() {
+
+		var mssqlServerContainer = new MSSQLServerContainer<>();
+
+		mssqlServerContainer.acceptLicense().withInitScript("V1__init.sql").withReuse(true);
+
+		return mssqlServerContainer;
+	}
+
+}
