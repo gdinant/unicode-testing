@@ -3,6 +3,7 @@ package com.gdinant.unicodedemo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Nationalized;
 
 @Entity
 @Builder
@@ -18,17 +20,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "UNICODE_TEST")
+@Table(name = "unicode_test")
 public class MyEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "COMMENT")
+	@Column(name = "comment")
 	private String comment;
 
-	@Column(name = "N_COMMENT")
+	@Nationalized
+	@Column(name = "n_comment")
 	private String nComment;
 
 }

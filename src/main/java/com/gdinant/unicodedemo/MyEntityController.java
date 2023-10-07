@@ -13,12 +13,12 @@ public class MyEntityController {
 
 	private final MyEntityService demoService;
 
-	@GetMapping("/entity/{id}")
+	@GetMapping("/demo/{id}")
 	public MyEntity find(@PathVariable Long id) {
 		return demoService.find(id);
 	}
 
-	@PutMapping("/entity")
+	@PutMapping("/demo")
 	public MyEntity save(@RequestBody String value) {
 		return demoService.save(value);
 	}
