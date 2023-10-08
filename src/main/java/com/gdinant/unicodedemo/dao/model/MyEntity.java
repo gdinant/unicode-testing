@@ -1,4 +1,4 @@
-package com.gdinant.unicodedemo;
+package com.gdinant.unicodedemo.dao.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,15 +23,17 @@ import org.hibernate.annotations.Nationalized;
 @Table(name = "unicode_test")
 public class MyEntity {
 
+	public static final int COMMENT_MAX_LENGTH = 10;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "comment")
+	@Column(name = "comment", length = COMMENT_MAX_LENGTH)
 	private String comment;
 
 	@Nationalized
-	@Column(name = "n_comment")
+	@Column(name = "n_comment", length = COMMENT_MAX_LENGTH)
 	private String nComment;
 
 }
