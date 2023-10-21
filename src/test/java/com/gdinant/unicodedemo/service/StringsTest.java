@@ -94,6 +94,20 @@ class StringsTest {
 	}
 
 	@Test
+	void truncateUnicode_NormalizeFirst_NoTruncation() {
+		// given
+		var unicode = "012345678\u0065\u0301";
+		var maxLength = 10;
+
+		// when
+		var actual = Strings.normalizedAndTruncateUnicode(unicode, maxLength);
+
+		// then
+		assertThat(actual.length()).isLessThanOrEqualTo(maxLength);
+		assertThat(actual).isEqualTo("012345678é");
+	}
+
+	@Test
 	void truncateUnicode_MultiCodePoints() {
 		// given
 		var unicode = "012345678🤦🏼";
