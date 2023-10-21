@@ -6,24 +6,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
+import org.testcontainers.shaded.org.apache.commons.lang3.StringEscapeUtils;
 
 class StringsTest {
 
 	@Test
-	void test() {
+	void multiPointEquality() {
+		// given
+		var eAccuteSingleCodePoint = "é";
+		var eAccuteMultipleCodePoint = "\u0065\u0301";
 
-		var s1 = "Hé";
-		display(s1);
+		// when
+		var equals = eAccuteSingleCodePoint.equals(eAccuteMultipleCodePoint);
 
-		var s2 = "\u0048\u0065\u0301";
-		display(s2);
-
-		System.out.println("%s equals %s: %s".formatted(s1, s2, s1.equals(s2)));
-	}
-
-	private static void display(String x) {
-		var cp = x.codePoints().mapToObj(Integer::toHexString).toList();
-		System.out.printf("%s (0x%s): %s chars%n", x, cp, x.length());
+		// then
+		System.out.println("%s equals %s: %s".formatted(eAccuteSingleCodePoint, eAccuteMultipleCodePoint, equals));
 	}
 
 	@Test
@@ -80,16 +77,6 @@ class StringsTest {
 		// then
 		assertThat(actual.length()).isLessThanOrEqualTo(maxLength);
 		assertThat(actual).isEqualTo(unicode);
-	}
-
-	@Test
-	void truncateUnicode2() {
-
-		var unicode = "012345678🤦🏼";
-		var maxLength = 10;
-
-		unicode.substring(0, maxLength - 1);
-
 	}
 
 	@Test

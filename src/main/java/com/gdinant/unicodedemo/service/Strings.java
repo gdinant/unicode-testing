@@ -52,7 +52,7 @@ public class Strings {
 		var end = boundary.last();
 		var substringLength = s.length();
 		while(substringLength > maxLength) {
-			
+
 			var start = boundary.previous();
 			var substring = s.substring(start, end);
 			substringLength -= substring.length();
