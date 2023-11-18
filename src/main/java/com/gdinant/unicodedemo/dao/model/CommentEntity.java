@@ -21,7 +21,7 @@ import org.hibernate.annotations.Nationalized;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "unicode_test")
-public class MyEntity {
+public class CommentEntity {
 
 	public static final int COMMENT_MAX_LENGTH = 10;
 

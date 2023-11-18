@@ -2,30 +2,34 @@ package com.gdinant.unicodedemo.controller;
 
 import jakarta.validation.Valid;
 
+import com.gdinant.unicodedemo.model.Comment;
 import com.gdinant.unicodedemo.model.SaveMyEntityRequest;
-import com.gdinant.unicodedemo.dao.model.MyEntity;
-import com.gdinant.unicodedemo.service.MyEntityService;
+import com.gdinant.unicodedemo.dao.model.CommentEntity;
+import com.gdinant.unicodedemo.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class MyEntityController {
+public class CommentController {
 
-	private final MyEntityService demoService;
+	private final CommentService commentService;
 
 	@GetMapping("/demo/{id}")
-	public MyEntity find(@PathVariable Long id) {
-		return demoService.find(id);
+	public Comment find(@PathVariable Long id) {
+		return commentService.find(id);
 	}
 
 	@PostMapping("/demo")
-	public MyEntity save(@Valid @RequestBody SaveMyEntityRequest req) {
-		return demoService.save(req.getValue());
+	@ResponseStatus(HttpStatus.CREATED)
+	public Long save(@Valid @RequestBody SaveMyEntityRequest req) {
+		return commentService.save(req.getValue());
 	}
 
 }
