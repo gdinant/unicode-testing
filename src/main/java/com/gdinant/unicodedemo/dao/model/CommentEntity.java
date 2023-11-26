@@ -23,6 +23,7 @@ import org.hibernate.annotations.Nationalized;
 @Table(name = "unicode_test")
 public class CommentEntity {
 
+	// !#of characters / graphemes but memory (byte-pairs)!
 	public static final int COMMENT_MAX_LENGTH = 10;
 
 	@Id

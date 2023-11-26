@@ -28,6 +28,28 @@ public class Strings {
 
 
 
+	/**
+	 *
+	 *
+	 * Unicode - Count graphemes
+	 *
+	 *
+	 */
+	public int countGraphemes(String s) {
+
+		var it = BreakIterator.getCharacterInstance();
+		it.setText(s);
+
+		int graphemeCount = 0;
+		while (it.next() != BreakIterator.DONE) {
+			graphemeCount++;
+		}
+
+		return graphemeCount;
+	}
+
+
+
 
 
 
@@ -36,31 +58,26 @@ public class Strings {
 	/**
 	 *
 	 *
-	 * Unicode aware - without normalization
+	 * Unicode - Truncate graphemes
 	 *
 	 *
 	 */
-	public String truncateUnicode(String s, int maxLength) {
+	public String truncateGraphemes(String s, int maxLength) {
 
-		if (s.length() <= maxLength) {
+		var length = countGraphemes(s);
+		if (length <= maxLength) {
 			return s;
 		}
 
-		var boundary = BreakIterator.getCharacterInstance();
-		boundary.setText(s);
+		var it = BreakIterator.getCharacterInstance();
+		it.setText(s);
+		it.last();
 
-		var end = boundary.last();
-		var substringLength = s.length();
-		while(substringLength > maxLength) {
-
-			var start = boundary.previous();
-			var substring = s.substring(start, end);
-			substringLength -= substring.length();
-			end = start;
-
+		for(int i = length; i > maxLength; i--) {
+			it.previous();
 		}
 
-		return s.substring(0, end);
+		return s.substring(0, it.current());
 	}
 
 

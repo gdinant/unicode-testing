@@ -22,9 +22,10 @@ public class CommentService {
 
 	public Long save(String comment) {
 
-		var truncatedComment = Strings.truncate(comment, CommentEntity.COMMENT_MAX_LENGTH);
+		var truncateString = Strings.truncate(comment, CommentEntity.COMMENT_MAX_LENGTH);
+		var truncateGraphemes = Strings.truncateGraphemes(comment, CommentEntity.COMMENT_MAX_LENGTH);
 
-		var entity = CommentEntity.builder().comment(truncatedComment).nComment(truncatedComment).build();
+		var entity = CommentEntity.builder().comment(truncateString).nComment(truncateGraphemes).build();
 
 		return commentRepository.save(entity).getId();
 	}

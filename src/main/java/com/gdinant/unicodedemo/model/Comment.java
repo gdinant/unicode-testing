@@ -12,11 +12,6 @@ public class Comment {
 	private Long id;
 
 	private String comment_varchar;
-	private String comment_varchar_encoding;
-
 	private String comment_nvarchar;
-	private String comment_nvarchar_encoding;
-
-	private String defaultCharset;
 
 }

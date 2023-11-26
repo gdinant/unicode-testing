@@ -1,12 +1,8 @@
 package com.gdinant.unicodedemo.service;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.apache.commons.lang3.StringEscapeUtils;
 
 class StringsTest {
 
@@ -82,42 +78,39 @@ class StringsTest {
 	@Test
 	void truncateUnicode() {
 		// given
-		var unicode = "012345678\u0065\u0301";
+		var unicode = "012345678\u0065\u03019";
 		var maxLength = 10;
 
 		// when
-		var actual = Strings.truncateUnicode(unicode, maxLength);
+		var actual = Strings.truncateGraphemes(unicode, maxLength);
 
 		// then
-		assertThat(actual.length()).isLessThanOrEqualTo(maxLength);
-		assertThat(actual).isEqualTo("012345678");
+		assertThat(actual).isEqualTo("012345678\u0065\u0301");
 	}
 
 	@Test
-	void truncateUnicode_NormalizeFirst_NoTruncation() {
+	void countGrapheme() {
 		// given
-		var unicode = "012345678\u0065\u0301";
-		var maxLength = 10;
+		var unicode = "012345678🤦‍♂️";
 
 		// when
-		var actual = Strings.normalizedAndTruncateUnicode(unicode, maxLength);
+		var actual = Strings.countGraphemes(unicode);
 
 		// then
-		assertThat(actual.length()).isLessThanOrEqualTo(maxLength);
-		assertThat(actual).isEqualTo("012345678é");
+		assertThat(actual).isEqualTo(10);
 	}
 
 	@Test
-	void truncateUnicode_MultiCodePoints() {
+	void truncateGraphemes_MultiCodePoints() {
 		// given
-		var unicode = "012345678🤦🏼";
+		// 🤦‍♂️ => U+1F926 U+200D U+2642 U+FE0F (4 code points) => 14 code points
+		var unicode = "012345678🤦‍♂️9"; // (length: 15, graphemes: 11)
 		var maxLength = 10;
 
 		// when
-		var actual = Strings.truncateUnicode(unicode, maxLength);
+		var actual = Strings.truncateGraphemes(unicode, maxLength);
 
 		// then
-		assertThat(actual.length()).isLessThanOrEqualTo(maxLength);
-		assertThat(actual).isEqualTo("012345678");
+		assertThat(actual).isEqualTo("012345678🤦‍♂️");
 	}
 }
