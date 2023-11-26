@@ -24,7 +24,7 @@ import org.hibernate.annotations.Nationalized;
 public class CommentEntity {
 
 	// !#of characters / graphemes but memory (byte-pairs)!
-	public static final int COMMENT_MAX_LENGTH = 10;
+	public static final int COMMENT_MAX_LENGTH = 20;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

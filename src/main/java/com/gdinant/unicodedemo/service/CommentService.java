@@ -22,8 +22,10 @@ public class CommentService {
 
 	public Long save(String comment) {
 
-		var truncateString = Strings.truncate(comment, CommentEntity.COMMENT_MAX_LENGTH);
-		var truncateGraphemes = Strings.truncateGraphemes(comment, CommentEntity.COMMENT_MAX_LENGTH);
+		var maxLength = 10;
+
+		var truncateString = Strings.truncate(comment, maxLength);
+		var truncateGraphemes = Strings.truncateGraphemes(comment, maxLength);
 
 		var entity = CommentEntity.builder().comment(truncateString).nComment(truncateGraphemes).build();
 
